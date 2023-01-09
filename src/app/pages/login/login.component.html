@@ -1,0 +1,96 @@
+<div class="header bg-gradient-secondary py-4">
+  <div class="container">
+    <img src="assets/img/brand/easy-pay-logo.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;"/>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container mt--10 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-body px-lg-5 py-lg-5">
+          <form role="form" [formGroup]="userLogin" (ngSubmit)="login()">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                </div>
+                <input class="form-control" placeholder="Correo" type="email" formControlName="email">
+              </div>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                   class="alert">
+                <div *ngIf="email.errors?.['required']">
+                  El correo es requerido
+                </div>
+                <div *ngIf="email.errors?.['email']">
+                  Debe ser un correo válido
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" placeholder="Contraseña" type="password" formControlName="password">
+              </div>
+              <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                   class="alert">
+                <div *ngIf="password.errors?.['required']">
+                  La contraseña es requerido
+                </div>
+              </div>
+            </div>
+            <a></a>
+            <div class="text-center">
+              <button type="submit" class="btn btn-danger my-4" [disabled]="!this.userLogin.valid">Ingresar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-3">
+       <div class="col-6">
+        <a href="javascript:void(0)" (click)="openResetPasswordModal(modalFormResetPassword)" class="text-danger"><small>¿ Olvidaste la contraseña?</small></a>
+       </div>
+        <!--
+       <div class="col-6 text-right">
+         <a href="javascript:void(0)" class="text-light"><small>Crear nueva cuenta</small></a>
+       </div>
+       -->
+      </div>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)"></ngx-spinner>
+</div>
+
+<ng-template #modalFormResetPassword let-modal>
+  <div class="card bg-secondary border-0 mb-0">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body px-lg-5 py-lg-5">
+      <h4 style="text-align: justify">Por favor, ingrese el correo electrónico registrado al cual se le enviara link para el cambio de contraseña</h4>
+      <br>
+      <form role="form" (ngSubmit)="resetPassword($event)" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Correo electronico</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="emailResetPassword"
+            name="name"
+          />
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary my-4">Resetear contraseña</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
